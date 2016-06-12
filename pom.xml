@@ -16,6 +16,7 @@
 
   <modules>
     <module>jooq-models</module>
+    <module>jooq-transactions</module>
   </modules>
 
   <build>
@@ -74,6 +75,12 @@
         <artifactId>jooq</artifactId>
         <version>${jooq.version}</version>
       </dependency>
+
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-jdbc</artifactId>
+        <version>${spring.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -83,6 +90,7 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <jooq.version>3.8.2</jooq.version>
+    <spring.version>4.3.0.RELEASE</spring.version>
   </properties>
 
 </project>
