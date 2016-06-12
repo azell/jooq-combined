@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+  objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+
+  <changeSet id="1" author="azell">
+    <createTable tableName="AUTHOR">
+      <column name="ID" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+
+      <column name="FIRST_NAME" type="varchar(191)">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="LAST_NAME" type="varchar(191)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <modifySql>
+      <append value="${table.defaults}"/>
+    </modifySql>
+  </changeSet>
+
+</databaseChangeLog>

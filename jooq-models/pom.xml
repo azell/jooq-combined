@@ -14,4 +14,40 @@
   <artifactId>jooq-models</artifactId>
   <packaging>jar</packaging>
 
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <configuration>
+          <changeLogFile>
+            ${project.basedir}/src/main/resources/changelog/jooq.changelog-master.xml
+          </changeLogFile>
+          <driver>org.h2.Driver</driver>
+          <url>jdbc:h2:file:${project.build.directory}/mydb</url>
+          <username>sa</username>
+          <password></password>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>process-resources</phase>
+            <goals>
+              <goal>update</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- If H2 is only used for code generation, then the scope could be set
+         to provided. -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <!-- <scope>provided</scope> -->
+    </dependency>
+  </dependencies>
+
 </project>
