@@ -59,6 +59,7 @@
           <url>${jdbc.url}</url>
           <username>${jdbc.username}</username>
           <password>${jdbc.password}</password>
+          <contexts>!test</contexts>
         </configuration>
         <executions>
           <execution>

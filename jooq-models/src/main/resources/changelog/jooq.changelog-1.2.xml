@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+  objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+
+  <changeSet id="3" author="azell" context="test">
+    <loadData tableName="AUTHOR" relativeToChangelogFile="true" file="authors.csv"/>
+    <loadData tableName="BOOK" relativeToChangelogFile="true" file="books.csv"/>
+  </changeSet>
+
+</databaseChangeLog>
