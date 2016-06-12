@@ -13,6 +13,7 @@ import org.h2.jdbcx.JdbcConnectionPool;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
@@ -34,9 +35,21 @@ public class AppTest
   private App app;
 
   public void shouldCreateNewAuthor() {
-    long id = app.createAuthor("James", "Gosling");
+    long id = app.createAuthor("Donald", "Knuth");
 
     assertTrue(id >= 0);
+  }
+
+  public void shouldCreateNewBook() {
+    long authorId = app.createAuthor("Joshua", "Bloch");
+    long id = app.createBook(authorId, "Effective Java", "English");
+
+    assertTrue(id >= 0);
+  }
+
+  @Test(expectedExceptions = DataIntegrityViolationException.class)
+  public void shouldFailToCreateNewBookWithoutValidForeignKey() {
+    app.createBook(-1, "Invalid Foreign Key", "Navi");
   }
 
   @Configuration
