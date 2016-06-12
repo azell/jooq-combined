@@ -17,20 +17,52 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.jooq</groupId>
+        <artifactId>jooq-codegen-maven</artifactId>
+        <configuration>
+          <jdbc>
+            <driver>${jdbc.driver}</driver>
+            <url>${jdbc.url}</url>
+            <user>${jdbc.username}</user>
+            <password>${jdbc.password}</password>
+          </jdbc>
+          <generator>
+            <database>
+              <name>org.jooq.util.h2.H2Database</name>
+              <includes>.*</includes>
+              <excludes></excludes>
+              <inputSchema>INFORMATION_SCHEMA</inputSchema>
+            </database>
+            <target>
+              <packageName>com.github.azell.jooq.models</packageName>
+              <directory>${project.build.directory}/generated-sources</directory>
+            </target>
+          </generator>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-maven-plugin</artifactId>
         <configuration>
           <changeLogFile>
             ${project.basedir}/src/main/resources/changelog/jooq.changelog-master.xml
           </changeLogFile>
-          <driver>org.h2.Driver</driver>
-          <url>jdbc:h2:file:${project.build.directory}/mydb</url>
-          <username>sa</username>
-          <password></password>
+          <driver>${jdbc.driver}</driver>
+          <url>${jdbc.url}</url>
+          <username>${jdbc.username}</username>
+          <password>${jdbc.password}</password>
         </configuration>
         <executions>
           <execution>
-            <phase>process-resources</phase>
+            <phase>initialize</phase>
             <goals>
               <goal>update</goal>
             </goals>
@@ -48,6 +80,18 @@
       <artifactId>h2</artifactId>
       <!-- <scope>provided</scope> -->
     </dependency>
+
+    <dependency>
+      <groupId>org.jooq</groupId>
+      <artifactId>jooq</artifactId>
+    </dependency>
   </dependencies>
+
+  <properties>
+    <jdbc.driver>org.h2.Driver</jdbc.driver>
+    <jdbc.password></jdbc.password>
+    <jdbc.url>jdbc:h2:file:${project.build.directory}/mydb</jdbc.url>
+    <jdbc.username>sa</jdbc.username>
+  </properties>
 
 </project>
