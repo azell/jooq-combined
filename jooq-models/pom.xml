@@ -19,6 +19,13 @@
       <plugin>
         <groupId>org.jooq</groupId>
         <artifactId>jooq-codegen-maven</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+          </dependency>
+        </dependencies>
         <configuration>
           <jdbc>
             <driver>${jdbc.driver}</driver>
@@ -51,6 +58,13 @@
       <plugin>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-maven-plugin</artifactId>
+        <dependencies>
+          <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+          </dependency>
+        </dependencies>
         <configuration>
           <changeLogFile>
             ${project.basedir}/src/main/resources/changelog/jooq.changelog-master.xml
@@ -74,14 +88,6 @@
   </build>
 
   <dependencies>
-    <!-- If H2 is only used for code generation, then the scope could be set
-         to provided. -->
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <!-- <scope>provided</scope> -->
-    </dependency>
-
     <dependency>
       <groupId>org.jooq</groupId>
       <artifactId>jooq</artifactId>
@@ -89,6 +95,8 @@
   </dependencies>
 
   <properties>
+    <h2.version>1.4.192</h2.version>
+
     <jdbc.driver>org.h2.Driver</jdbc.driver>
     <jdbc.password></jdbc.password>
     <jdbc.url>jdbc:h2:file:${project.build.directory}/mydb</jdbc.url>

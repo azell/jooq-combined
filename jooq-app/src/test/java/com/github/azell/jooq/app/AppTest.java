@@ -11,12 +11,12 @@ import com.github.azell.jooq.transactions.JooqTransactionFactory;
 
 import liquibase.integration.spring.SpringLiquibase;
 
-import org.h2.jdbcx.JdbcConnectionPool;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
+import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.test.context.testng
@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import org.testng.annotations.Test;
 
-import static org.jooq.SQLDialect.H2;
+import static org.jooq.SQLDialect.HSQLDB;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
@@ -64,16 +64,16 @@ public class AppTest
   @Configuration
   @EnableTransactionManagement
   static class ContextConfiguration {
-    @Bean(destroyMethod = "dispose")
+    @Bean
     public DataSource dataSource() {
-      return JdbcConnectionPool.create("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1",
-                                       "sa",
-                                       "");
+      EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
+
+      return builder.setType(EmbeddedDatabaseType.HSQL).build();
     }
 
     @Bean
     public JooqFactory jooqFactory() {
-      return new JooqTransactionFactory(dataSource(), H2);
+      return new JooqTransactionFactory(dataSource(), HSQLDB);
     }
 
     @Bean
