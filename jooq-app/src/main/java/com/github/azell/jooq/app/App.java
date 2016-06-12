@@ -1,10 +1,14 @@
 package com.github.azell.jooq.app;
 
+import java.util.Collections;
+import java.util.List;
+
 import com.github.azell.jooq.models.tables.records.BookRecord;
 import com.github.azell.jooq.models.tables.records.AuthorRecord;
 import com.github.azell.jooq.transactions.JooqFactory;
 
 import org.jooq.DSLContext;
+import org.jooq.Record;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,5 +56,33 @@ public class App {
     LOGGER.info("book created: {}", book);
 
     return book.getId();
+  }
+
+  @Transactional(readOnly = true)
+  public List<String> getBooksByAuthor(String firstName, String lastName) {
+    List<String> values = Collections.emptyList();
+
+    DSLContext ctx = factory.context();
+    Record record = ctx.select(AUTHOR.ID)
+                       .from(AUTHOR)
+                       .where(AUTHOR.FIRST_NAME.eq(firstName))
+                       .and(AUTHOR.LAST_NAME.eq(lastName))
+                       .fetchOne();
+
+    if (record != null) {
+      Long authorId = record.getValue(AUTHOR.ID);
+
+      values = ctx.select(BOOK.TITLE)
+                  .from(BOOK)
+                  .join(AUTHOR)
+                  .onKey()
+                  .where(BOOK.AUTHOR_ID.eq(authorId))
+                  .fetch()
+                  .getValues(BOOK.TITLE);
+
+      LOGGER.info("book titles: {} {} / {}", firstName, lastName, values);
+    }
+
+    return values;
   }
 }

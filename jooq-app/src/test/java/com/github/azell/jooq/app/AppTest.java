@@ -1,5 +1,7 @@
 package com.github.azell.jooq.app;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import javax.sql.DataSource;
@@ -25,6 +27,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.testng.annotations.Test;
 
 import static org.jooq.SQLDialect.H2;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
@@ -50,6 +53,12 @@ public class AppTest
   @Test(expectedExceptions = DataIntegrityViolationException.class)
   public void shouldFailToCreateNewBookWithoutValidForeignKey() {
     app.createBook(-1, "Invalid Foreign Key", "Navi");
+  }
+
+  public void shouldGetMultipleBooks() {
+    List<String> books = app.getBooksByAuthor("Stephen", "King");
+
+    assertFalse(books.isEmpty());
   }
 
   @Configuration
