@@ -31,7 +31,7 @@
               <name>org.jooq.util.h2.H2Database</name>
               <includes>.*</includes>
               <excludes></excludes>
-              <inputSchema>INFORMATION_SCHEMA</inputSchema>
+              <inputSchema>PUBLIC</inputSchema>
             </database>
             <target>
               <packageName>com.github.azell.jooq.models</packageName>
