@@ -8,7 +8,7 @@
 
   <changeSet id="2" author="azell">
     <createTable tableName="BOOK">
-      <column name="ID" type="bigint">
+      <column name="ID" type="bigint" autoIncrement="true">
         <constraints primaryKey="true" nullable="false"/>
       </column>
 

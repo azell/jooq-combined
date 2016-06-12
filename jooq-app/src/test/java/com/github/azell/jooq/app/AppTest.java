@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.testng.annotations.Test;
 
 import static org.jooq.SQLDialect.H2;
+import static org.testng.Assert.assertTrue;
 
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 @Test
@@ -32,11 +33,10 @@ public class AppTest
   @Inject
   private App app;
 
-  @Inject
-  private JooqFactory factory;
+  public void shouldCreateNewAuthor() {
+    long id = app.createAuthor("James", "Gosling");
 
-  public void foo() {
-    System.out.println("Hello, world.");
+    assertTrue(id >= 0);
   }
 
   @Configuration
