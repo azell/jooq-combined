@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
+  objectQuotingStrategy="QUOTE_ALL_OBJECTS">
+
+  <changeSet id="2" author="azell">
+    <createTable tableName="BOOK">
+      <column name="ID" type="bigint">
+        <constraints primaryKey="true" nullable="false"/>
+      </column>
+
+      <column name="AUTHOR_ID" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="TITLE" type="varchar(191)">
+        <constraints nullable="false"/>
+      </column>
+
+      <column name="LANGUAGE" type="varchar(191)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+
+    <modifySql>
+      <append value="${table.defaults}"/>
+    </modifySql>
+  </changeSet>
+
+  <changeSet id="3" author="azell">
+    <addForeignKeyConstraint
+      baseTableName="BOOK" baseColumnNames="AUTHOR_ID"
+      referencedTableName="AUTHOR" referencedColumnNames="ID"
+      constraintName="BOOK_IBFK_1"
+    />
+  </changeSet>
+
+</databaseChangeLog>
