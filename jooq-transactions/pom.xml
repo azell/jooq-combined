@@ -15,7 +15,6 @@
   <packaging>jar</packaging>
 
   <dependencies>
-    <!-- Compile dependencies -->
     <dependency>
       <groupId>org.jooq</groupId>
       <artifactId>jooq</artifactId>
