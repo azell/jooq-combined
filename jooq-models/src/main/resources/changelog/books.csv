@@ -1,7 +1,7 @@
-ID,AUTHOR_ID,TITLE,LANGUAGE
-1,1,Misery,English
-2,1,Cujo,German
-3,1,Christine,Spanish
-4,2,Romeo and Juliet,English
-5,2,Hamlet,Portuguese
-6,3,Murder on the Orient Express,English
+AUTHOR_ID,TITLE,LANGUAGE
+1,Misery,English
+1,Cujo,German
+1,Christine,Spanish
+2,Romeo and Juliet,English
+2,Hamlet,Portuguese
+3,Murder on the Orient Express,English
