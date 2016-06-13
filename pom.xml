@@ -90,6 +90,12 @@
       </dependency>
 
       <dependency>
+        <groupId>com.opentable.components</groupId>
+        <artifactId>otj-pg-embedded</artifactId>
+        <version>0.7.0</version>
+      </dependency>
+
+      <dependency>
         <groupId>javax.inject</groupId>
         <artifactId>javax.inject</artifactId>
         <version>1</version>
