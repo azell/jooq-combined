@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.azell.jooq.app.beans.AuthorBean;
+import com.github.azell.jooq.app.beans.BookBean;
 import com.github.azell.jooq.models.tables.records.AuthorRecord;
 import com.github.azell.jooq.models.tables.records.BookRecord;
 import com.github.azell.jooq.transactions.JooqFactory;
@@ -71,30 +72,29 @@ public class App {
   }
 
   @Transactional(readOnly = true)
-  public List<String> getBooksByAuthor(String firstName, String lastName) {
-    List<String> values = Collections.emptyList();
+  public List<BookBean> getBooksByAuthor(String firstName, String lastName) {
+    List<BookBean> books  = Collections.emptyList();
 
-    DSLContext   ctx    = factory.context();
-    Record       record = ctx.select(AUTHOR.ID)
-                             .from(AUTHOR)
-                             .where(AUTHOR.FIRST_NAME.eq(firstName))
-                             .and(AUTHOR.LAST_NAME.eq(lastName))
-                             .fetchOne();
+    DSLContext     ctx    = factory.context();
+    AuthorBean     author = ctx.select()
+                               .from(AUTHOR)
+                               .where(AUTHOR.FIRST_NAME.eq(firstName))
+                               .and(AUTHOR.LAST_NAME.eq(lastName))
+                               .fetchOneInto(AuthorBean.class);
 
-    if (record != null) {
-      Long authorId = record.getValue(AUTHOR.ID);
+    if (author != null) {
+      Long authorId = author.getId();
 
-      values = ctx.select(BOOK.TITLE)
-                  .from(BOOK)
-                  .join(AUTHOR)
-                  .onKey()
-                  .where(BOOK.AUTHOR_ID.eq(authorId))
-                  .fetch()
-                  .getValues(BOOK.TITLE);
+      books = ctx.select()
+                 .from(BOOK)
+                 .where(BOOK.AUTHOR_ID.eq(authorId))
+                 .fetchInto(BookBean.class);
 
-      LOGGER.info("book titles: {} {} / {}", firstName, lastName, values);
+      books.stream().forEach(book -> book.setAuthor(author));
+
+      LOGGER.info("books: {}", books);
     }
 
-    return values;
+    return books;
   }
 }

@@ -16,6 +16,7 @@ import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import com.github.azell.jooq.app.beans.AuthorBean;
+import com.github.azell.jooq.app.beans.BookBean;
 
 import liquibase.integration.spring.SpringLiquibase;
 
@@ -60,7 +61,7 @@ public abstract class AppTest
   }
 
   public void shouldGetMultipleBooks() {
-    List<String> books = app.getBooksByAuthor("Stephen", "King");
+    List<BookBean> books = app.getBooksByAuthor("Stephen", "King");
 
     assertFalse(books.isEmpty());
   }
