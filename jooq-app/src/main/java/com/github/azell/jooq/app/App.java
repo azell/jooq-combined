@@ -72,6 +72,17 @@ public class App {
   }
 
   @Transactional(readOnly = true)
+  public List<String> getBookLanguages(String title) {
+    DSLContext ctx = factory.context();
+
+    return ctx.select(BOOK.LANGUAGE)
+              .from(BOOK)
+              .where(BOOK.TITLE.eq(title))
+              .fetch()
+              .getValues(BOOK.LANGUAGE);
+  }
+
+  @Transactional(readOnly = true)
   public List<BookBean> getBooksByAuthor(String firstName, String lastName) {
     List<BookBean> books  = Collections.emptyList();
 

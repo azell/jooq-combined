@@ -1,5 +1,6 @@
 package com.github.azell.jooq.app;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -12,6 +13,7 @@ import org.springframework.test.context.testng
 
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
@@ -64,5 +66,11 @@ public abstract class AppTest
     List<BookBean> books = app.getBooksByAuthor("Stephen", "King");
 
     assertFalse(books.isEmpty());
+  }
+
+  public void shouldGetOneLanguage() {
+    List<String> languages = app.getBookLanguages("Hamlet");
+
+    assertEquals(languages, Arrays.asList("Portuguese"));
   }
 }
