@@ -15,6 +15,8 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import com.github.azell.jooq.app.beans.AuthorBean;
+
 import liquibase.integration.spring.SpringLiquibase;
 
 @Test
@@ -48,7 +50,13 @@ public abstract class AppTest
 
   @Test(expectedExceptions = DataIntegrityViolationException.class)
   public void shouldFailToCreateNewBookWithoutValidForeignKey() {
-    app.createBook(-1, "Invalid Foreign Key", "Navi");
+    app.createBook(-1, "Invalid Foreign Key", "Esperanto");
+  }
+
+  public void shouldGetMultipleAuthors() {
+    List<AuthorBean> authors = app.getAuthors();
+
+    assertFalse(authors.isEmpty());
   }
 
   public void shouldGetMultipleBooks() {

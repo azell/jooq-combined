@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.azell.jooq.app.beans.AuthorBean;
 import com.github.azell.jooq.models.tables.records.AuthorRecord;
 import com.github.azell.jooq.models.tables.records.BookRecord;
 import com.github.azell.jooq.transactions.JooqFactory;
@@ -54,6 +55,19 @@ public class App {
     LOGGER.info("book created: {}", book);
 
     return book.getId();
+  }
+
+  @Transactional(readOnly = true)
+  public List<AuthorBean> getAuthors() {
+    DSLContext       ctx     = factory.context();
+    List<AuthorBean> authors = ctx.select()
+                                  .from(AUTHOR)
+                                  .fetchInto(AuthorBean.class);
+
+    LOGGER.info("authors: {}", authors);
+
+    return authors;
+
   }
 
   @Transactional(readOnly = true)
