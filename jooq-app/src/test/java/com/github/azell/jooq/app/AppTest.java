@@ -3,9 +3,8 @@ package com.github.azell.jooq.app;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.sql.DataSource;
 
-import liquibase.integration.spring.SpringLiquibase;
+import javax.sql.DataSource;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.testng
@@ -16,11 +15,23 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
+import liquibase.integration.spring.SpringLiquibase;
+
 @Test
 public abstract class AppTest
         extends AbstractTransactionalTestNGSpringContextTests {
   @Inject
   private App app;
+
+  static SpringLiquibase load(DataSource dataSource) {
+    SpringLiquibase obj = new SpringLiquibase();
+
+    obj.setDataSource(dataSource);
+    obj.setChangeLog("classpath:changelog/jooq.changelog-master.xml");
+    obj.setContexts("test");
+
+    return obj;
+  }
 
   public void shouldCreateNewAuthor() {
     long id = app.createAuthor("Donald", "Knuth");
@@ -30,7 +41,7 @@ public abstract class AppTest
 
   public void shouldCreateNewBook() {
     long authorId = app.createAuthor("Joshua", "Bloch");
-    long id = app.createBook(authorId, "Effective Java", "English");
+    long id       = app.createBook(authorId, "Effective Java", "English");
 
     assertTrue(id >= 0);
   }
@@ -44,15 +55,5 @@ public abstract class AppTest
     List<String> books = app.getBooksByAuthor("Stephen", "King");
 
     assertFalse(books.isEmpty());
-  }
-
-  static SpringLiquibase load(DataSource dataSource) {
-    SpringLiquibase obj = new SpringLiquibase();
-
-    obj.setDataSource(dataSource);
-    obj.setChangeLog("classpath:changelog/jooq.changelog-master.xml");
-    obj.setContexts("test");
-
-    return obj;
   }
 }

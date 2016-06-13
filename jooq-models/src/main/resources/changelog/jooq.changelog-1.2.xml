@@ -7,8 +7,13 @@
   objectQuotingStrategy="QUOTE_ALL_OBJECTS">
 
   <changeSet id="3" author="azell" context="test">
-    <loadData tableName="AUTHOR" relativeToChangelogFile="true" file="authors.csv"/>
-    <loadData tableName="BOOK" relativeToChangelogFile="true" file="books.csv"/>
+    <loadData tableName="AUTHOR" relativeToChangelogFile="true" file="test/authors.csv"/>
+    <loadData tableName="BOOK" relativeToChangelogFile="true" file="test/books.csv"/>
+  </changeSet>
+
+  <changeSet id="4" author="azell" context="prod">
+    <loadData tableName="AUTHOR" relativeToChangelogFile="true" file="prod/authors.csv"/>
+    <loadData tableName="BOOK" relativeToChangelogFile="true" file="prod/books.csv"/>
   </changeSet>
 
 </databaseChangeLog>
