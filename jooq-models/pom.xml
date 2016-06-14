@@ -45,6 +45,7 @@
               <directory>${project.build.directory}/generated-sources</directory>
             </target>
           </generator>
+          <logging>INFO</logging>
         </configuration>
         <executions>
           <execution>
@@ -64,6 +65,7 @@
             <artifactId>h2</artifactId>
             <version>${h2.version}</version>
           </dependency>
+          <!-- Sample production deploy -->
           <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -79,6 +81,7 @@
           <username>${jdbc.username}</username>
           <password>${jdbc.password}</password>
           <contexts>!test</contexts>
+          <logging>info</logging>
         </configuration>
         <executions>
           <execution>

@@ -25,8 +25,8 @@ public class HyperAppTest extends AppTest {
   @EnableTransactionManagement
   static class ContextConfiguration {
     @Bean
-    public App app() {
-      return new App(jooqFactory());
+    public App app(JooqFactory factory) {
+      return new App(factory);
     }
 
     @Bean
@@ -37,18 +37,18 @@ public class HyperAppTest extends AppTest {
     }
 
     @Bean
-    public JooqFactory jooqFactory() {
-      return new JooqTransactionFactory(dataSource(), HSQLDB);
+    public JooqFactory jooqFactory(DataSource ds) {
+      return new JooqTransactionFactory(ds, HSQLDB);
     }
 
     @Bean
-    public SpringLiquibase springLiquibase() {
-      return load(dataSource());
+    public SpringLiquibase springLiquibase(DataSource ds) {
+      return load(ds);
     }
 
     @Bean
-    public PlatformTransactionManager txManager() {
-      return new DataSourceTransactionManager(dataSource());
+    public PlatformTransactionManager txManager(DataSource ds) {
+      return new DataSourceTransactionManager(ds);
     }
   }
 }

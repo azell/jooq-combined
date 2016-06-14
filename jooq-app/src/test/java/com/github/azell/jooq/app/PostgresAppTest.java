@@ -30,18 +30,18 @@ public class PostgresAppTest extends AppTest {
   @EnableTransactionManagement
   static class ContextConfiguration {
     @Bean
-    public App app() {
-      return new App(jooqFactory());
+    public App app(JooqFactory factory) {
+      return new App(factory);
     }
 
     @Bean
-    public DataSource dataSource() {
-      return pg().getPostgresDatabase();
+    public DataSource dataSource(EmbeddedPostgres pg) {
+      return pg.getPostgresDatabase();
     }
 
     @Bean
-    public JooqFactory jooqFactory() {
-      return new JooqTransactionFactory(dataSource(), POSTGRES_9_4);
+    public JooqFactory jooqFactory(DataSource ds) {
+      return new JooqTransactionFactory(ds, POSTGRES_9_4);
     }
 
     @Bean(destroyMethod = "close")
@@ -54,13 +54,13 @@ public class PostgresAppTest extends AppTest {
     }
 
     @Bean
-    public SpringLiquibase springLiquibase() {
-      return load(dataSource());
+    public SpringLiquibase springLiquibase(DataSource ds) {
+      return load(ds);
     }
 
     @Bean
-    public PlatformTransactionManager txManager() {
-      return new DataSourceTransactionManager(dataSource());
+    public PlatformTransactionManager txManager(DataSource ds) {
+      return new DataSourceTransactionManager(ds);
     }
   }
 }
