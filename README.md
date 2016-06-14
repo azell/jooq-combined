@@ -10,6 +10,7 @@ Databases used:
 
 * H2
 * HyperSQL
+* MariaDB
 * MySQL
 * PostgreSQL
 

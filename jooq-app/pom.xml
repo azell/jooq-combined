@@ -44,6 +44,12 @@
 
     <!-- Test scope -->
     <dependency>
+      <groupId>com.github.vorburger</groupId>
+      <artifactId>MariaDB4j</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
       <groupId>com.mattbertolini</groupId>
       <artifactId>liquibase-slf4j</artifactId>
       <scope>test</scope>
@@ -70,6 +76,12 @@
     <dependency>
       <groupId>org.liquibase</groupId>
       <artifactId>liquibase-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mariadb.jdbc</groupId>
+      <artifactId>mariadb-java-client</artifactId>
       <scope>test</scope>
     </dependency>
 
