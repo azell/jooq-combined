@@ -19,8 +19,6 @@ Databases used:
 Spin up a MySQL Docker image:
 
 ```
-# docker-machine ip default
-
 docker run -p 3306:3306 --name some-mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:5.7
 sleep 10
 docker run -it --link some-mysql:mysql --rm mysql:5.7 sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
@@ -35,7 +33,7 @@ Create `prod-liquibase.properties`:
 
 ```
 driver: com.mysql.jdbc.Driver
-url: jdbc:mysql://192.168.99.100:3306/jooq
+url: jdbc:mysql://0.0.0.0:3306/jooq
 username: root
 password: my-secret-pw
 changeLogFile: src/main/resources/changelog/jooq.changelog-master.xml
