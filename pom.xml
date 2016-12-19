@@ -33,7 +33,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.5.1</version>
+          <version>3.6.0</version>
           <configuration>
             <compilerArgument>-parameters</compilerArgument>
             <showDeprecation>true</showDeprecation>
@@ -75,7 +75,7 @@
       <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
-        <version>1.1.7</version>
+        <version>1.1.8</version>
       </dependency>
 
       <dependency>
@@ -99,7 +99,7 @@
       <dependency>
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
-        <version>19.0</version>
+        <version>20.0</version>
       </dependency>
 
       <dependency>
@@ -141,13 +141,13 @@
       <dependency>
         <groupId>org.mariadb.jdbc</groupId>
         <artifactId>mariadb-java-client</artifactId>
-        <version>1.5.2</version>
+        <version>1.5.5</version>
       </dependency>
 
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <version>1.7.21</version>
+        <version>1.7.22</version>
       </dependency>
 
       <dependency>
@@ -177,7 +177,7 @@
       <dependency>
         <groupId>org.testng</groupId>
         <artifactId>testng</artifactId>
-        <version>6.9.10</version>
+        <version>6.10</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -188,9 +188,9 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <app.version>1.0-dev</app.version>
-    <jooq.version>3.8.4</jooq.version>
-    <liquibase.version>3.5.2</liquibase.version>
-    <spring.version>4.3.3.RELEASE</spring.version>
+    <jooq.version>3.8.6</jooq.version>
+    <liquibase.version>3.5.3</liquibase.version>
+    <spring.version>4.3.4.RELEASE</spring.version>
   </properties>
 
 </project>

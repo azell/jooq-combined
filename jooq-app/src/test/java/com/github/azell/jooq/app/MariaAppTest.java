@@ -2,6 +2,8 @@ package com.github.azell.jooq.app;
 
 import javax.sql.DataSource;
 
+import static java.util.Locale.ENGLISH;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -38,7 +40,8 @@ public class MariaAppTest extends AppTest {
       DriverManagerDataSource ds = new DriverManagerDataSource();
 
       ds.setDriverClassName("org.mariadb.jdbc.Driver");
-      ds.setUrl(String.format("jdbc:mariadb://localhost:%d/mydb",
+      ds.setUrl(String.format(ENGLISH,
+                              "jdbc:mariadb://localhost:%d/mydb?useCompression=true",
                               config.getPort()));
       ds.setUsername("root");
       ds.setPassword("");
