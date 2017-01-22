@@ -32,8 +32,8 @@ Database changed
 Create `prod-liquibase.properties`:
 
 ```
-driver: com.mysql.jdbc.Driver
-url: jdbc:mysql://0.0.0.0:3306/jooq
+driver: com.mysql.cj.jdbc.Driver
+url: jdbc:mysql://:3306/jooq
 username: root
 password: my-secret-pw
 changeLogFile: src/main/resources/changelog/jooq.changelog-master.xml
