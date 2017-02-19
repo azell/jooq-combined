@@ -18,6 +18,20 @@
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <annotationProcessors>
+            <annotationProcessor>org.jooq.checker.PlainSQLChecker</annotationProcessor>
+            <annotationProcessor>org.jooq.checker.SQLDialectChecker</annotationProcessor>
+          </annotationProcessors>
+          <compilerArgs>
+            <arg>-Xbootclasspath/p:1.8</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <systemPropertyVariables>
@@ -47,6 +61,13 @@
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
+    </dependency>
+
+    <!-- Provided dependencies -->
+    <dependency>
+      <groupId>org.jooq</groupId>
+      <artifactId>jooq-checker</artifactId>
+      <scope>provided</scope>
     </dependency>
 
     <!-- Runtime scope -->

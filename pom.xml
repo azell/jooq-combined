@@ -75,7 +75,7 @@
       <dependency>
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-classic</artifactId>
-        <version>1.1.9</version>
+        <version>1.2.1</version>
       </dependency>
 
       <dependency>
@@ -93,7 +93,7 @@
       <dependency>
         <groupId>com.github.vorburger</groupId>
         <artifactId>MariaDB4j</artifactId>
-        <version>mariaDB4j-2.2.2</version>
+        <version>mariaDB4j-2.2.3</version>
       </dependency>
 
       <dependency>
@@ -133,6 +133,12 @@
       </dependency>
 
       <dependency>
+        <groupId>org.jooq</groupId>
+        <artifactId>jooq-checker</artifactId>
+        <version>${jooq.version}</version>
+      </dependency>
+
+      <dependency>
         <groupId>org.liquibase</groupId>
         <artifactId>liquibase-core</artifactId>
         <version>${liquibase.version}</version>
@@ -141,13 +147,13 @@
       <dependency>
         <groupId>org.mariadb.jdbc</groupId>
         <artifactId>mariadb-java-client</artifactId>
-        <version>1.5.7</version>
+        <version>1.5.8</version>
       </dependency>
 
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <version>1.7.22</version>
+        <version>1.7.23</version>
       </dependency>
 
       <dependency>
@@ -190,7 +196,7 @@
     <app.version>1.0-dev</app.version>
     <jooq.version>3.9.1</jooq.version>
     <liquibase.version>3.5.3</liquibase.version>
-    <spring.version>4.3.5.RELEASE</spring.version>
+    <spring.version>4.3.6.RELEASE</spring.version>
   </properties>
 
 </project>
