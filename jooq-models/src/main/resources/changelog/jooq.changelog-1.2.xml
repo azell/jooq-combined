@@ -6,12 +6,12 @@
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd"
   objectQuotingStrategy="QUOTE_ALL_OBJECTS">
 
-  <changeSet id="3" author="azell" context="test">
+  <changeSet id="4" author="azell" context="test">
     <loadData tableName="AUTHOR" relativeToChangelogFile="true" file="test/authors.csv"/>
     <loadData tableName="BOOK" relativeToChangelogFile="true" file="test/books.csv"/>
   </changeSet>
 
-  <changeSet id="4" author="azell" context="prod">
+  <changeSet id="5" author="azell" context="prod">
     <loadData tableName="AUTHOR" relativeToChangelogFile="true" file="prod/authors.csv"/>
     <loadData tableName="BOOK" relativeToChangelogFile="true" file="prod/books.csv"/>
   </changeSet>
