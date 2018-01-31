@@ -111,6 +111,12 @@
       </dependency>
 
       <dependency>
+        <groupId>javax.annotation</groupId>
+        <artifactId>javax.annotation-api</artifactId>
+        <version>1.3.1</version>
+      </dependency>
+
+      <dependency>
         <groupId>javax.inject</groupId>
         <artifactId>javax.inject</artifactId>
         <version>1</version>
@@ -186,7 +192,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.java.version>1.8</project.java.version>
+    <project.java.version>9</project.java.version>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <app.version>1.0-dev</app.version>
