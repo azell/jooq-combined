@@ -79,8 +79,8 @@
 
     <!-- Test scope -->
     <dependency>
-      <groupId>com.github.vorburger</groupId>
-      <artifactId>MariaDB4j</artifactId>
+      <groupId>ch.vorburger.mariaDB4j</groupId>
+      <artifactId>mariaDB4j</artifactId>
       <scope>test</scope>
     </dependency>
 
