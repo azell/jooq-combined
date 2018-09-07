@@ -1,17 +1,10 @@
 package com.github.azell.jooq.app;
 
-import static com.wix.mysql.EmbeddedMysql.anEmbeddedMysql;
-import static com.wix.mysql.ScriptResolver.classPathScript;
-import static com.wix.mysql.config.MysqldConfig.aMysqldConfig;
-import static com.wix.mysql.distribution.Version.v5_7_19;
-import static java.util.Locale.ENGLISH;
 import static org.jooq.SQLDialect.MYSQL_5_7;
 
 import com.github.azell.jooq.transactions.JooqFactory;
 import com.github.azell.jooq.transactions.JooqTransactionFactory;
-import com.wix.mysql.EmbeddedMysql;
-import com.wix.mysql.config.MysqldConfig;
-import java.util.concurrent.TimeUnit;
+import io.airlift.testing.mysql.TestingMySqlServer;
 import javax.sql.DataSource;
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.context.annotation.Bean;
@@ -24,7 +17,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-public class MysqlAppTest extends AppTest {
+public class Mysql2AppTest extends AppTest {
   @Configuration
   @EnableTransactionManagement
   static class ContextConfiguration {
@@ -34,31 +27,18 @@ public class MysqlAppTest extends AppTest {
     }
 
     @Bean
-    public DataSource dataSource(MysqldConfig config, EmbeddedMysql mysqld) {
+    public DataSource dataSource(TestingMySqlServer mysqld) {
       DriverManagerDataSource ds = new DriverManagerDataSource();
 
       ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-      ds.setUrl(
-          String.format(
-              ENGLISH,
-              "jdbc:mysql://localhost:%d/mydb?useCompression=true&useSSL=false",
-              config.getPort()));
-      ds.setUsername("root");
-      ds.setPassword("");
+      ds.setUrl(mysqld.getJdbcUrl("mydb"));
 
       return ds;
     }
 
-    @Bean(destroyMethod = "stop")
-    public EmbeddedMysql mysqld(MysqldConfig config) {
-      return anEmbeddedMysql(config)
-          .addSchema("mydb", classPathScript("db/init_schema.sql"))
-          .start();
-    }
-
-    @Bean
-    public MysqldConfig config() {
-      return aMysqldConfig(v5_7_19).withPort(port()).withTimeout(60L, TimeUnit.SECONDS).build();
+    @Bean(destroyMethod = "close")
+    public TestingMySqlServer mysqld() throws Exception {
+      return new TestingMySqlServer("root", "", "mydb");
     }
 
     @Bean
