@@ -6,6 +6,9 @@ import static org.testng.Assert.assertTrue;
 
 import com.github.azell.jooq.app.beans.AuthorBean;
 import com.github.azell.jooq.app.beans.BookBean;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.net.ServerSocket;
 import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
@@ -63,5 +66,15 @@ public abstract class AppTest extends AbstractTransactionalTestNGSpringContextTe
     List<String> languages = app.getBookLanguages("Hamlet");
 
     assertEquals(languages, Arrays.asList("Portuguese"));
+  }
+
+  public static int port() {
+    try (ServerSocket socket = new ServerSocket(0)) {
+      socket.setReuseAddress(true);
+
+      return socket.getLocalPort();
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
   }
 }

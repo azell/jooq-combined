@@ -1,16 +1,12 @@
 package com.github.azell.jooq.app;
 
-import static com.wix.mysql.EmbeddedMysql.anEmbeddedMysql;
-import static com.wix.mysql.ScriptResolver.classPathScript;
-import static com.wix.mysql.config.MysqldConfig.aMysqldConfig;
-import static com.wix.mysql.distribution.Version.v5_7_19;
 import static java.util.Locale.ENGLISH;
-import static org.jooq.SQLDialect.MYSQL_5_7;
+import static org.jooq.SQLDialect.POSTGRES_10;
 
 import com.github.azell.jooq.transactions.JooqFactory;
 import com.github.azell.jooq.transactions.JooqTransactionFactory;
-import com.wix.mysql.EmbeddedMysql;
-import com.wix.mysql.config.MysqldConfig;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import javax.sql.DataSource;
 import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.context.annotation.Bean;
@@ -21,9 +17,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import ru.yandex.qatools.embed.postgresql.PostgresProcess;
+import ru.yandex.qatools.embed.postgresql.PostgresStarter;
+import ru.yandex.qatools.embed.postgresql.config.PostgresConfig;
 
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
-public class MysqlAppTest extends AppTest {
+public class Postgres2AppTest extends AppTest {
   @Configuration
   @EnableTransactionManagement
   static class ContextConfiguration {
@@ -33,36 +32,44 @@ public class MysqlAppTest extends AppTest {
     }
 
     @Bean
-    public DataSource dataSource(MysqldConfig config, EmbeddedMysql mysqld) {
+    public DataSource dataSource(PostgresConfig config, PostgresProcess pg) {
       DriverManagerDataSource ds = new DriverManagerDataSource();
 
-      ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+      ds.setDriverClassName("org.postgresql.Driver");
       ds.setUrl(
           String.format(
               ENGLISH,
-              "jdbc:mysql://localhost:%d/mydb?useCompression=true&useSSL=false",
-              config.getPort()));
-      ds.setUsername("root");
-      ds.setPassword("");
+              "jdbc:postgresql://%s:%s/%s",
+              config.net().host(),
+              config.net().port(),
+              config.storage().dbName()));
+      ds.setUsername(config.credentials().username());
+      ds.setPassword(config.credentials().password());
 
       return ds;
     }
 
-    @Bean(destroyMethod = "stop")
-    public EmbeddedMysql mysqld(MysqldConfig config) {
-      return anEmbeddedMysql(config)
-          .addSchema("mydb", classPathScript("db/init_schema.sql"))
-          .start();
-    }
-
     @Bean
-    public MysqldConfig config() {
-      return aMysqldConfig(v5_7_19).withPort(port()).build();
+    public PostgresConfig config() {
+      try {
+        return PostgresConfig.defaultWithDbName("mydb", "user", "pass");
+      } catch (IOException e) {
+        throw new UncheckedIOException(e);
+      }
     }
 
     @Bean
     public JooqFactory jooqFactory(DataSource ds) {
-      return new JooqTransactionFactory(ds, MYSQL_5_7);
+      return new JooqTransactionFactory(ds, POSTGRES_10);
+    }
+
+    @Bean(destroyMethod = "stop")
+    public PostgresProcess pg(PostgresConfig config) {
+      try {
+        return PostgresStarter.getDefaultInstance().prepare(config).start();
+      } catch (IOException e) {
+        throw new UncheckedIOException(e);
+      }
     }
 
     @Bean

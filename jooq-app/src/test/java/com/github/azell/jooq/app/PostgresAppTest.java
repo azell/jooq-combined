@@ -1,6 +1,6 @@
 package com.github.azell.jooq.app;
 
-import static org.jooq.SQLDialect.POSTGRES_9_4;
+import static org.jooq.SQLDialect.POSTGRES_10;
 
 import com.github.azell.jooq.transactions.JooqFactory;
 import com.github.azell.jooq.transactions.JooqTransactionFactory;
@@ -34,7 +34,7 @@ public class PostgresAppTest extends AppTest {
 
     @Bean
     public JooqFactory jooqFactory(DataSource ds) {
-      return new JooqTransactionFactory(ds, POSTGRES_9_4);
+      return new JooqTransactionFactory(ds, POSTGRES_10);
     }
 
     @Bean(destroyMethod = "close")
