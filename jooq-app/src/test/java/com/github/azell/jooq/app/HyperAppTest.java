@@ -1,7 +1,11 @@
 package com.github.azell.jooq.app;
 
-import javax.sql.DataSource;
+import static org.jooq.SQLDialect.HSQLDB;
 
+import com.github.azell.jooq.transactions.JooqFactory;
+import com.github.azell.jooq.transactions.JooqTransactionFactory;
+import javax.sql.DataSource;
+import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -11,13 +15,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import static org.jooq.SQLDialect.HSQLDB;
-
-import com.github.azell.jooq.transactions.JooqFactory;
-import com.github.azell.jooq.transactions.JooqTransactionFactory;
-
-import liquibase.integration.spring.SpringLiquibase;
 
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 public class HyperAppTest extends AppTest {

@@ -1,11 +1,11 @@
 package com.github.azell.jooq.app.beans;
 
-import java.util.Objects;
-
 import static com.google.common.base.MoreObjects.toStringHelper;
 
+import java.util.Objects;
+
 public class AuthorBean {
-  private Long   id;
+  private Long id;
   private String firstName;
   private String lastName;
 
@@ -19,9 +19,10 @@ public class AuthorBean {
     } else if (obj instanceof AuthorBean) {
       AuthorBean that = (AuthorBean) obj;
 
-      rc = Objects.equals(id, that.id)
-           && Objects.equals(firstName, that.firstName)
-           && Objects.equals(lastName, that.lastName);
+      rc =
+          Objects.equals(id, that.id)
+              && Objects.equals(firstName, that.firstName)
+              && Objects.equals(lastName, that.lastName);
     }
 
     return rc;
@@ -36,11 +37,12 @@ public class AuthorBean {
   /** {@inheritDoc} */
   @Override
   public String toString() {
-    return toStringHelper(this).omitNullValues()
-                               .add("id", id)
-                               .add("firstName", firstName)
-                               .add("lastName", lastName)
-                               .toString();
+    return toStringHelper(this)
+        .omitNullValues()
+        .add("id", id)
+        .add("firstName", firstName)
+        .add("lastName", lastName)
+        .toString();
   }
 
   public String getFirstName() {

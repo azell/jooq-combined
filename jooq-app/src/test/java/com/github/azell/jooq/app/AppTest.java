@@ -1,32 +1,23 @@
 package com.github.azell.jooq.app;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import javax.sql.DataSource;
-
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.test.context.testng
-  .AbstractTransactionalTestNGSpringContextTests;
-
-import org.testng.annotations.Test;
-
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import com.github.azell.jooq.app.beans.AuthorBean;
 import com.github.azell.jooq.app.beans.BookBean;
-
+import java.util.Arrays;
+import java.util.List;
+import javax.inject.Inject;
+import javax.sql.DataSource;
 import liquibase.integration.spring.SpringLiquibase;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.test.context.testng.AbstractTransactionalTestNGSpringContextTests;
+import org.testng.annotations.Test;
 
 @Test
-public abstract class AppTest
-        extends AbstractTransactionalTestNGSpringContextTests {
-  @Inject
-  private App app;
+public abstract class AppTest extends AbstractTransactionalTestNGSpringContextTests {
+  @Inject private App app;
 
   static SpringLiquibase load(DataSource dataSource) {
     SpringLiquibase obj = new SpringLiquibase();
@@ -46,7 +37,7 @@ public abstract class AppTest
 
   public void shouldCreateNewBook() {
     long authorId = app.createAuthor("Joshua", "Bloch");
-    long id       = app.createBook(authorId, "Effective Java", "English");
+    long id = app.createBook(authorId, "Effective Java", "English");
 
     assertTrue(id >= 0);
   }

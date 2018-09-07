@@ -2,12 +2,9 @@ package com.github.azell.jooq.transactions;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-
 import javax.sql.DataSource;
-
 import org.jooq.ConnectionProvider;
 import org.jooq.exception.DataAccessException;
-
 import org.springframework.jdbc.datasource.DataSourceUtils;
 
 /**
@@ -29,9 +26,7 @@ public class SpringTxConnectionProvider implements ConnectionProvider {
     try {
       return DataSourceUtils.doGetConnection(ds);
     } catch (SQLException e) {
-      throw new DataAccessException(
-          "Error getting connection from data source " + ds,
-          e);
+      throw new DataAccessException("Error getting connection from data source " + ds, e);
     }
   }
 

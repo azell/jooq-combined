@@ -1,14 +1,14 @@
 package com.github.azell.jooq.app.beans;
 
-import java.util.Objects;
-
 import static com.google.common.base.MoreObjects.toStringHelper;
 
+import java.util.Objects;
+
 public class BookBean {
-  private Long       id;
+  private Long id;
   private AuthorBean author;
-  private String     title;
-  private String     language;
+  private String title;
+  private String language;
 
   /** {@inheritDoc} */
   @Override
@@ -20,10 +20,11 @@ public class BookBean {
     } else if (obj instanceof BookBean) {
       BookBean that = (BookBean) obj;
 
-      rc = Objects.equals(id, that.id)
-           && Objects.equals(author, that.author)
-           && Objects.equals(title, that.title)
-           && Objects.equals(language, that.language);
+      rc =
+          Objects.equals(id, that.id)
+              && Objects.equals(author, that.author)
+              && Objects.equals(title, that.title)
+              && Objects.equals(language, that.language);
     }
 
     return rc;
@@ -38,12 +39,13 @@ public class BookBean {
   /** {@inheritDoc} */
   @Override
   public String toString() {
-    return toStringHelper(this).omitNullValues()
-                               .add("id", id)
-                               .add("author", author)
-                               .add("title", title)
-                               .add("language", language)
-                               .toString();
+    return toStringHelper(this)
+        .omitNullValues()
+        .add("id", id)
+        .add("author", author)
+        .add("title", title)
+        .add("language", language)
+        .toString();
   }
 
   public AuthorBean getAuthor() {

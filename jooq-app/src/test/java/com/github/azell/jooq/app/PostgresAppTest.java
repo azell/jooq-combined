@@ -1,10 +1,14 @@
 package com.github.azell.jooq.app;
 
+import static org.jooq.SQLDialect.POSTGRES_9_4;
+
+import com.github.azell.jooq.transactions.JooqFactory;
+import com.github.azell.jooq.transactions.JooqTransactionFactory;
+import com.opentable.db.postgres.embedded.EmbeddedPostgres;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-
 import javax.sql.DataSource;
-
+import liquibase.integration.spring.SpringLiquibase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -12,15 +16,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import static org.jooq.SQLDialect.POSTGRES_9_4;
-
-import com.github.azell.jooq.transactions.JooqFactory;
-import com.github.azell.jooq.transactions.JooqTransactionFactory;
-
-import com.opentable.db.postgres.embedded.EmbeddedPostgres;
-
-import liquibase.integration.spring.SpringLiquibase;
 
 @ContextConfiguration(loader = AnnotationConfigContextLoader.class)
 public class PostgresAppTest extends AppTest {

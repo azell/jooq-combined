@@ -1,7 +1,6 @@
 package com.github.azell.jooq.transactions;
 
 import javax.sql.DataSource;
-
 import org.jooq.Configuration;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
@@ -23,13 +22,12 @@ public class JooqTransactionFactory implements JooqFactory {
     this(ds, dialect, new Settings().withRenderSchema(false));
   }
 
-  public JooqTransactionFactory(DataSource ds, SQLDialect dialect,
-                                Settings settings) {
-    config.set(new SpringTxConnectionProvider(ds))
-          .set(dialect)
-          .set(settings)
-          .set(new DefaultExecuteListenerProvider(
-              new SpringTxExecuteListener()));
+  public JooqTransactionFactory(DataSource ds, SQLDialect dialect, Settings settings) {
+    config
+        .set(new SpringTxConnectionProvider(ds))
+        .set(dialect)
+        .set(settings)
+        .set(new DefaultExecuteListenerProvider(new SpringTxExecuteListener()));
   }
 
   /** {@inheritDoc} */
