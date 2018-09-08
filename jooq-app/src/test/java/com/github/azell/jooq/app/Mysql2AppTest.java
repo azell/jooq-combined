@@ -31,14 +31,14 @@ public class Mysql2AppTest extends AppTest {
       DriverManagerDataSource ds = new DriverManagerDataSource();
 
       ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
-      ds.setUrl(mysqld.getJdbcUrl("mydb"));
+      ds.setUrl(mysqld.getJdbcUrl(APP_DB));
 
       return ds;
     }
 
     @Bean(destroyMethod = "close")
     public TestingMySqlServer mysqld() throws Exception {
-      return new TestingMySqlServer("root", "", "mydb");
+      return new TestingMySqlServer(APP_USER, APP_PASS, APP_DB);
     }
 
     @Bean

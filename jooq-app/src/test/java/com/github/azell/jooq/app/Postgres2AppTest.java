@@ -52,7 +52,7 @@ public class Postgres2AppTest extends AppTest {
     @Bean
     public PostgresConfig config() {
       try {
-        return PostgresConfig.defaultWithDbName("mydb", "user", "pass");
+        return PostgresConfig.defaultWithDbName(APP_DB, "user", "pass");
       } catch (IOException e) {
         throw new UncheckedIOException(e);
       }

@@ -20,6 +20,10 @@ import org.testng.annotations.Test;
 
 @Test
 public abstract class AppTest extends AbstractTransactionalTestNGSpringContextTests {
+  protected static final String APP_DB = "mydb";
+  protected static final String APP_USER = "root";
+  protected static final String APP_PASS = "";
+
   @Inject private App app;
 
   static SpringLiquibase load(DataSource dataSource) {

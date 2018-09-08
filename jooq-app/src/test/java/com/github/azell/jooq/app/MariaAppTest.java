@@ -38,8 +38,8 @@ public class MariaAppTest extends AppTest {
       ds.setUrl(
           String.format(
               ENGLISH, "jdbc:mariadb://localhost:%d/mydb?useCompression=true", config.getPort()));
-      ds.setUsername("root");
-      ds.setPassword("");
+      ds.setUsername(APP_USER);
+      ds.setPassword(APP_PASS);
 
       return ds;
     }
@@ -49,7 +49,7 @@ public class MariaAppTest extends AppTest {
       DB db = DB.newEmbeddedDB(config);
 
       db.start();
-      db.createDB("mydb");
+      db.createDB(APP_DB);
 
       return db;
     }

@@ -43,8 +43,8 @@ public class MysqlAppTest extends AppTest {
               ENGLISH,
               "jdbc:mysql://localhost:%d/mydb?useCompression=true&useSSL=false",
               config.getPort()));
-      ds.setUsername("root");
-      ds.setPassword("");
+      ds.setUsername(APP_USER);
+      ds.setPassword(APP_PASS);
 
       return ds;
     }
@@ -52,7 +52,7 @@ public class MysqlAppTest extends AppTest {
     @Bean(destroyMethod = "stop")
     public EmbeddedMysql mysqld(MysqldConfig config) {
       return anEmbeddedMysql(config)
-          .addSchema("mydb", classPathScript("db/init_schema.sql"))
+          .addSchema(APP_DB, classPathScript("db/init_schema.sql"))
           .start();
     }
 
