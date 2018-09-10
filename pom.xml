@@ -229,7 +229,7 @@
     <jooq.version>3.11.4</jooq.version>
     <liquibase.version>3.6.2</liquibase.version>
     <mysql-connector.version>8.0.12</mysql-connector.version>
-    <spring.version>5.0.8.RELEASE</spring.version>
+    <spring.version>5.0.9.RELEASE</spring.version>
   </properties>
 
 </project>

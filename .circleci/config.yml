@@ -32,6 +32,7 @@ jobs:
           - v1-dependencies-
 
       # - run: mvn dependency:go-offline
+      - run: mvn package dependency:go-offline -DskipTests
 
       - save_cache:
           paths:
