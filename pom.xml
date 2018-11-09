@@ -31,7 +31,8 @@
           <artifactId>maven-compiler-plugin</artifactId>
           <version>3.8.0</version>
           <configuration>
-            <compilerArgument>-parameters</compilerArgument>
+            <failOnWarning>true</failOnWarning>
+            <parameters>true</parameters>
             <showDeprecation>true</showDeprecation>
             <showWarnings>true</showWarnings>
             <source>${project.java.version}</source>
@@ -135,7 +136,7 @@
       <dependency>
         <groupId>com.opentable.components</groupId>
         <artifactId>otj-pg-embedded</artifactId>
-        <version>0.12.3</version>
+        <version>0.12.4</version>
       </dependency>
 
       <dependency>
@@ -254,10 +255,10 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <app.version>1.0-dev</app.version>
-    <jooq.version>3.11.5</jooq.version>
+    <jooq.version>3.11.7</jooq.version>
     <liquibase.version>3.6.2</liquibase.version>
-    <mysql-connector.version>8.0.12</mysql-connector.version>
-    <spring.version>5.1.1.RELEASE</spring.version>
+    <mysql-connector.version>8.0.13</mysql-connector.version>
+    <spring.version>5.1.2.RELEASE</spring.version>
   </properties>
 
 </project>
