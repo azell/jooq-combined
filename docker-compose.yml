@@ -1,0 +1,9 @@
+db:
+    image: mysql:5.7
+    environment:
+       - MYSQL_ROOT_PASSWORD=my-secret-pw
+    ports:
+        - 3306:3360
+    volumes:
+        - ./sql:/docker-entrypoint-initdb.d
+
